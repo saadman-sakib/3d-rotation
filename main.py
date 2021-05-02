@@ -25,8 +25,9 @@ class P:
 
 class Box():
 	def __init__(self):
+		self.DISTANCE = -40000
 		EDGE = 200
-		self.threeD_points=[
+		self.threeD_points = [
 			(0,0,-EDGE/2),
 			(EDGE,0,-EDGE/2),
 			(EDGE,EDGE,-EDGE/2),
@@ -39,7 +40,7 @@ class Box():
 		self.points = []
 
 		for x in self.threeD_points:
-			self.points.append(P(*x).in_2d(-4000))
+			self.points.append(P(*x).in_2d(-self.DISTANCE))
 
 	def draw_shape(self):
 		points = self.points
@@ -84,8 +85,7 @@ class Box():
 
 		self.points = []
 		for x in self.threeD_points:
-			self.points.append(P(*x).in_2d(-4000))
-
+			self.points.append(P(*x).in_2d(-self.DISTANCE))
 
 	def update_x(self, theta_x):
 		transformation = [
@@ -99,20 +99,23 @@ class Box():
 			self.threeD_points[i] = tuple(np.matmul(
 									point,
 									transformation
-								)
-							)
-
+								))
 		self.points = []
 		for x in self.threeD_points:
-			self.points.append(P(*x).in_2d(-4000))
+			self.points.append(P(*x).in_2d(-self.DISTANCE))
 
 
 shape  = Box()
 
 while True:
 	turtle.clear()
+	turtle.goto((0,0))
+	turtle.pen(pencolor="#cf465d", pensize=3)
+	turtle.dot(size=20)
+	turtle.pen(pencolor="#fff3de", pensize=3)
 	shape.draw_shape()
-	shape.update_x(.0007)
-	shape.update_z(.0014)
+	shape.update_z(45)
+	shape.update_x(.0021)
+	shape.update_z(-45.0006)
 	turtle.update()
 
